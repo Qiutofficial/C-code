@@ -8,7 +8,7 @@
 int main()
 {
     int m, n, **matrix1, i, j;
-
+    printf("Enter size of matrix (x y): ");
     scanf("%d %d", &m, &n);
     printf("\n\n");
     srand(time(NULL));
@@ -90,7 +90,82 @@ int main()
             for (j = 0; j < n - 1; j++)
                 printf("%6d ", matrix2[i][j]);
         }
+    printf("\n\n");
 
+    int l = 0, qr = 1, qc = 0, vi = 0, **fa = NULL, flag = 0;
+    char s[100] = {0}, *a = NULL, *value = NULL;
+
+    fflush(stdin);
+    printf("Print values for new matrix in appropriate format: \n\n");
+    a = fgets(s, sizeof(s), stdin);
+    l = strlen(a) - 2;
+    i = 0;
+    for (i = 0; i < l; i++)
+    {
+        if ((a[i] == ' ') && (flag == 0))
+        {
+            qc++;
+        }
+        if (a[i] == ',')
+        {
+            qr++;
+            i++;
+            flag = 1;
+        }
+    }
+    fa = (int**) malloc(qr * sizeof(int*));
+    for (i = 0; i < qr; i++)
+        fa[i] = (int*) malloc(qc * sizeof(int));
+    qc = 0;
+    qr = 0;
+    value = (char*) malloc(6*sizeof(char));
+    for (i = 0; i < l; i++)
+    {
+    if (isdigit(a[i]) != 0)
+        {
+            value[vi] = a[i];
+            vi++;
+        }
+    if ((a[i] == ' ') && (a[i - 1] != ',') ) {
+            fa[qr][qc] = atoi(value);
+            vi = 0;
+            qc++;
+            free(value);
+            value = (char*) malloc(6*sizeof(char));
+    }
+    if (a[i] == ',') {
+            qr++;
+            qc = 0;
+    }
+    if (a[i] == '.') {
+            qr++;
+    }
+    }
+    qr++;
+    printf("Array has been created: \n\n");
+    for (i = 0; i < qr; i++) {
+            printf("\n");
+        for (j = 0; j < qc; j++)
+            printf("%6d ", fa[i][j]);
+    }
+    printf("\n\n");
+
+
+    int **matrix3, k;
+    matrix3 = (int**) malloc((n-1) * sizeof(int*));
+    for (i = 0; i < n - 1; i++)
+        matrix3[i] = (int*) malloc(qr * sizeof(int));
+    printf("Matrixes has been multiplied: \n\n");
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = 0; j < qc; j++)
+        {
+            for (k = 0; k < n - 1; k++)
+                matrix3[i][j] = matrix1[i][k] * matrix2[k][j];
+            printf("%6d ", matrix3[i][j]);
+        }
+        printf("\n");
+    }
     printf("\n\n");
     printf("Successfully done.\n");
     printf("\n\n");
