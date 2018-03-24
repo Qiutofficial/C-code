@@ -90,12 +90,6 @@ int main()
             for (j = 0; j < n - 1; j++)
                 printf("%6d ", matrix2[i][j]);
         }
-    printf("\n\n");
-
-    int l = 0, qr = 1, qc = 0, vi = 0, **fa = NULL, flag = 0;
-    char s[100] = {0}, *a = NULL, *value = NULL;
-
-    fflush(stdin);
 
     printf("\n\n");
     printf("Successfully done.\n");
